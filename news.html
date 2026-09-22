@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>소식 | 엔터테인먼트경영연구센터</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<meta name="description" content="공지사항, 센터 소식, 자료실">
+<meta property="og:type" content="website">
+<meta property="og:title" content="소식 | 엔터테인먼트경영연구센터">
+<meta property="og:description" content="공지사항, 센터 소식, 자료실">
+<meta property="og:site_name" content="Center for Entertainment Strategy and Management, Korea University">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site-header" id="site-header"></header>
+
+<section class="hero small">
+  <div class="container">
+    <span class="eyebrow">News</span>
+    <h1>소식</h1>
+    <p>공지사항 · 센터 소식 · 자료실</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" id="tabroot">
+    <div class="tabs">
+      <button class="active" data-panel="notice">공지사항</button>
+      <button data-panel="news">센터 소식</button>
+      <button data-panel="resources">자료실</button>
+    </div>
+    <div class="panel active" id="notice"><ul class="list" id="notice-list"></ul></div>
+    <div class="panel" id="news"><div class="grid c3" id="news-list"></div></div>
+    <div class="panel" id="resources"><ul class="list" id="res-list"></ul></div>
+  </div>
+</section>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script>
+window.render = function (S) {
+  const nl2br = t => (t || '').replace(/\n/g, '<br>');
+  document.getElementById('notice-list').innerHTML = [...S.notices].sort((a, b) => ((b.pinned ? 1 : 0) - (a.pinned ? 1 : 0)) || byDateDesc(a, b)).map(n =>
+    `<li>${n.pinned ? '<span class="pin">공지</span>' : ''}<details style="flex:1"><summary style="cursor:pointer;font-weight:600">${n.title}</summary><p class="muted" style="margin:.6em 0 0">${nl2br(n.body) || '(본문 없음)'}</p>${n.image ? `<img class="notice-img" src="${n.image}" alt="">` : ''}${n.file ? `<p><a href="${n.file}" target="_blank" rel="noopener" style="color:var(--crimson);font-weight:600">첨부파일 →</a></p>` : ''}</details><span class="date">${fmtDate(n.date)}</span></li>`).join('');
+  document.getElementById('news-list').innerHTML = [...S.news].sort(byDateDesc).map(n =>
+    `<div class="card">${n.image ? `<img class="thumb" src="${n.image}" alt="" style="object-fit:cover">` : '<div class="thumb">NEWS</div>'}<span class="tag">${n.tag}</span><span class="date">${fmtDate(n.date)}</span><h3 style="margin-top:.4em">${n.title}</h3><p>${n.summary || ''}</p>${n.link ? `<p style="margin-top:8px"><a href="${n.link}" target="_blank" rel="noopener" style="color:var(--crimson);font-weight:600">기사 보기 →</a></p>` : ''}</div>`).join('');
+  document.getElementById('res-list').innerHTML = [...S.resources].sort(byDateDesc).map(r =>
+    `<li><span class="date">${fmtDate(r.date)}</span><a href="${r.file || '#'}" ${r.file ? 'target="_blank" rel="noopener"' : ''}>${r.title}</a><span class="muted" style="font-size:.85rem;margin-left:auto">${r.desc || ''}</span></li>`).join('');
+  tabs(document.getElementById('tabroot'));
+};
+</script>
+<script src="assets/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>엔터테인먼트경영연구센터 | Center for Entertainment Strategy and Management</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<meta name="description" content="고려대학교 엔터테인먼트경영연구센터. 엔터테인먼트 산업과 경영의 다학제적 연구 허브.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="엔터테인먼트경영연구센터 | Center for Entertainment Strategy and Management">
+<meta property="og:description" content="고려대학교 엔터테인먼트경영연구센터. 엔터테인먼트 산업과 경영의 다학제적 연구 허브.">
+<meta property="og:site_name" content="Center for Entertainment Strategy and Management, Korea University">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site-header" id="site-header"></header>
+
+<section class="hero">
+  <div class="container">
+    <span class="eyebrow">Korea University · Media Hall</span>
+    <h1 id="hero-title"></h1>
+    <p id="hero-sub"></p>
+    <div class="actions">
+      <a class="btn solid" href="about.html">센터 소개</a>
+      <a class="btn" href="research.html">연구 활동</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div><span class="eyebrow">What we do</span><h2>주요 활동분야</h2></div>
+      <a class="more" href="about.html">더 보기 →</a>
+    </div>
+    <div class="grid c5" id="areas"></div>
+  </div>
+</section>
+
+<section class="section soft">
+  <div class="container">
+    <div class="split">
+      <div>
+        <div class="section-head">
+          <div><span class="eyebrow">News</span><h2>센터 소식</h2></div>
+          <a class="more" href="news.html#news">전체 보기 →</a>
+        </div>
+        <div class="grid c3" id="news"></div>
+      </div>
+      <div>
+        <div class="section-head">
+          <div><span class="eyebrow">Notice</span><h2>공지사항</h2></div>
+          <a class="more" href="news.html#notice">전체 보기 →</a>
+        </div>
+        <ul class="list" id="notices"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div><span class="eyebrow">People</span><h2>연구진</h2></div>
+      <a class="more" href="people.html">전체 보기 →</a>
+    </div>
+    <div class="grid c5" id="members"></div>
+  </div>
+</section>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script>
+window.render = function (S) {
+  document.getElementById('hero-title').textContent = S.tagline.en;
+  document.getElementById('hero-sub').textContent = S.tagline.ko + ' — ' + S.mission;
+  document.getElementById('areas').innerHTML = S.areas.map((a, i) =>
+    `<div class="card"><div class="num">0${i + 1}</div><h3>${a.title}</h3><p>${a.desc}</p></div>`).join('');
+  document.getElementById('news').innerHTML = [...S.news].sort(byDateDesc).slice(0, 3).map(n =>
+    `<a class="card" href="news.html#news">${n.image ? `<img class="thumb" src="${n.image}" alt="" style="object-fit:cover">` : '<div class="thumb">NEWS</div>'}<span class="tag">${n.tag}</span><span class="date">${fmtDate(n.date)}</span><h3 style="margin-top:.4em">${n.title}</h3><p>${n.summary || ''}</p></a>`).join('');
+  document.getElementById('notices').innerHTML = [...S.notices].sort((a, b) => ((b.pinned ? 1 : 0) - (a.pinned ? 1 : 0)) || byDateDesc(a, b)).slice(0, 5).map(n =>
+    `<li>${n.pinned ? '<span class="pin">공지</span>' : ''}<a href="news.html#notice">${n.title}</a><span class="date" style="margin-left:auto">${fmtDate(n.date)}</span></li>`).join('');
+  document.getElementById('members').innerHTML = S.members.slice(0, 5).map(m =>
+    `<div class="member">${avatar(m)}<h3>${m.name}</h3><div class="role">${m.role}</div><div class="aff">${m.aff || ''}</div></div>`).join('');
+};
+</script>
+<script src="assets/main.js"></script>
+</body>
+</html>

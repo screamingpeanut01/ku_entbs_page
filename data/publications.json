@@ -1,0 +1,40 @@
+{
+  "items": [
+    {
+      "year": 2024,
+      "type": "보고서",
+      "authors": "엔터테인먼트경영연구센터",
+      "title": "(예시) 팬덤 산업 실태조사 보고서",
+      "venue": "센터 발간",
+      "link": "",
+      "_id": "2024-n05gw6"
+    },
+    {
+      "year": 2025,
+      "type": "저서",
+      "authors": "김정환 외",
+      "title": "(예시) 엔터테인먼트 경영의 이해",
+      "venue": "출판사",
+      "link": "",
+      "_id": "2025-l2ytc9"
+    },
+    {
+      "year": 2025,
+      "type": "국내학술지",
+      "authors": "김정환 외",
+      "title": "(예시) 엔터테크 산업의 가치사슬 변화에 관한 연구",
+      "venue": "한국언론학보",
+      "link": "",
+      "_id": "2025-zes78t"
+    },
+    {
+      "year": 2026,
+      "type": "국제학술지",
+      "authors": "Kim, J., et al.",
+      "title": "(예시) Fandom platforms and the economics of participation",
+      "venue": "Journal of Media Economics",
+      "link": "",
+      "_id": "2026-r4pkq5"
+    }
+  ]
+}

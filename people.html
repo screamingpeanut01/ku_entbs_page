@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>연구진 | 엔터테인먼트경영연구센터</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<meta name="description" content="센터장, 공동연구원, Research Fellow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="연구진 | 엔터테인먼트경영연구센터">
+<meta property="og:description" content="센터장, 공동연구원, Research Fellow">
+<meta property="og:site_name" content="Center for Entertainment Strategy and Management, Korea University">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site-header" id="site-header"></header>
+
+<section class="hero small">
+  <div class="container">
+    <span class="eyebrow">People</span>
+    <h1>연구진</h1>
+    <p>센터장, 공동연구원, Research Fellow</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <span class="eyebrow">Director</span>
+    <h2>센터장</h2>
+    <div class="grid c4" id="director" style="margin-bottom:56px"></div>
+
+    <span class="eyebrow">Co-researchers</span>
+    <h2>공동연구원</h2>
+    <div class="grid c4" id="co" style="margin-bottom:56px"></div>
+
+    <span class="eyebrow">Fellows</span>
+    <h2>Research Fellow</h2>
+    <div class="grid c4" id="fellow"></div>
+  </div>
+</section>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script>
+window.render = function (S) {
+  const card = m => `<div class="card member">${avatar(m)}<h3>${m.name}</h3><div class="role">${m.role}</div><div class="aff">${m.aff || ''}</div>${m.field ? `<p style="margin-top:8px">${m.field}</p>` : ''}${m.email ? `<p><a href="mailto:${m.email}">${m.email}</a></p>` : ''}</div>`;
+  document.getElementById('director').innerHTML = S.members.filter(m => m.role === '센터장').map(card).join('');
+  document.getElementById('co').innerHTML = S.members.filter(m => m.role === '공동연구원').map(card).join('');
+  document.getElementById('fellow').innerHTML = S.members.filter(m => m.role !== '센터장' && m.role !== '공동연구원').map(card).join('');
+};
+</script>
+<script src="assets/main.js"></script>
+</body>
+</html>

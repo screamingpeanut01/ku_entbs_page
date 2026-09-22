@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>페이지를 찾을 수 없습니다 | 엔터테인먼트경영연구센터</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+  body{margin:0;font-family:"Pretendard Variable",Pretendard,sans-serif;background:#f7f7f9;color:#1c1c1e;display:grid;place-items:center;min-height:100vh;text-align:center;padding:20px}
+  h1{color:#8B0029;font-size:4rem;margin:0}
+  p{color:#6b6b70}
+  a{display:inline-block;margin-top:12px;padding:.7em 1.3em;border-radius:999px;background:#8B0029;color:#fff;text-decoration:none;font-weight:600}
+</style>
+</head>
+<body>
+<div>
+  <h1>404</h1>
+  <p>요청하신 페이지를 찾을 수 없습니다.</p>
+  <a href="javascript:location.href=location.pathname.split('/').slice(0,-1).join('/')+'/' ">홈으로</a>
+</div>
+<script>
+  // GitHub Pages 프로젝트 주소(/ku_entbs_page/)와 전용 도메인(/) 둘 다에서 홈으로 가도록 처리
+  document.querySelector('a').href = location.pathname.startsWith('/ku_entbs_page/') ? '/ku_entbs_page/' : '/';
+</script>
+</body>
+</html>

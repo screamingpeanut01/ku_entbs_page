@@ -1,0 +1,237 @@
+# 관리 화면(/admin) 설정 - Sveltia CMS (Decap CMS 호환)
+# 로그인: GitHub 계정. 저장소에 Write 권한이 있어야 편집 가능.
+# base_url 은 docs/ADMIN_SETUP.md 절차대로 배포한 인증 Worker 주소로 바꿉니다.
+#
+# 공지·소식·연구진 등은 "한 건 = 파일 하나" (site/data/<컬렉션>/*.json).
+# 배포 시 scripts/build-data.js 가 컬렉션별 합본 파일을 만들고, 사이트는 그 합본을 읽습니다.
+
+backend:
+  name: github
+  repo: screamingpeanut01/ku_entbs_page
+  branch: main
+  base_url: https://REPLACE-ME.workers.dev   # ← 인증 Worker 주소 (예: https://ku-cesm-auth.username.workers.dev)
+  commit_messages:
+    create: "관리자: {{collection}} 추가 - {{slug}}"
+    update: "관리자: {{collection}} 수정 - {{slug}}"
+    delete: "관리자: {{collection}} 삭제 - {{slug}}"
+    uploadMedia: "관리자: 파일 업로드 {{path}}"
+    deleteMedia: "관리자: 파일 삭제 {{path}}"
+
+# site_url 은 생략: 도메인이 바뀌어도 이 파일을 고칠 필요가 없도록 상대 경로로 동작
+media_folder: site/assets/uploads   # 저장소 안의 실제 경로
+public_folder: assets/uploads       # 사이트에서 참조하는 경로
+
+slug:
+  encoding: unicode      # 한글 파일명 허용 (연구진 이름 등)
+  clean_accents: false
+
+collections:
+  # ---------- 건별 컬렉션 (목록 화면 + 새 항목 버튼 + 건별 수정·삭제) ----------
+  - name: notices
+    label: 공지사항
+    label_singular: 공지
+    icon: campaign
+    folder: site/data/notices
+    extension: json
+    format: json
+    create: true
+    delete: true
+    slug: "{{year}}{{month}}{{day}}-{{uuid_shorter}}"
+    summary: "{{date}} · {{title}}"
+    sortable_fields: [date, title]
+    view_filters:
+      - { label: 상단 고정, field: pinned, pattern: true }
+    fields:
+      - { name: title, label: 제목, widget: string }
+      - { name: date, label: 날짜, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, default: "{{now}}" }
+      - { name: pinned, label: 상단 고정, widget: boolean, default: false, required: false }
+      - { name: body, label: 본문, widget: text, required: false }
+      - { name: image, label: 사진, widget: image, required: false }
+      - { name: file, label: 첨부파일, widget: file, required: false }
+
+  - name: news
+    label: 센터 소식
+    label_singular: 소식
+    icon: newspaper
+    folder: site/data/news
+    extension: json
+    format: json
+    create: true
+    delete: true
+    slug: "{{year}}{{month}}{{day}}-{{uuid_shorter}}"
+    summary: "{{date}} · [{{tag}}] {{title}}"
+    sortable_fields: [date, title, tag]
+    fields:
+      - { name: title, label: 제목, widget: string }
+      - { name: date, label: 날짜, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, default: "{{now}}" }
+      - { name: tag, label: 분류, widget: select, options: [행사, 언론, 연구, 수상, 기타], default: 행사 }
+      - { name: summary, label: 요약, widget: text, required: false }
+      - { name: link, label: 외부 링크(기사 등), widget: string, required: false }
+      - { name: image, label: 대표 이미지, widget: image, required: false }
+
+  - name: members
+    label: 연구진
+    label_singular: 연구원
+    icon: groups
+    folder: site/data/members
+    extension: json
+    format: json
+    create: true
+    delete: true
+    slug: "{{name}}"
+    identifier_field: name
+    summary: "{{role}} · {{name}} ({{aff}})"
+    sortable_fields: [order, name, role]
+    fields:
+      - { name: name, label: 이름, widget: string }
+      - { name: role, label: 구분, widget: select, options: [센터장, 공동연구원, Research Fellow, 연구원], default: 공동연구원 }
+      - { name: aff, label: 소속, widget: string, required: false }
+      - { name: email, label: 이메일, widget: string, required: false }
+      - { name: field, label: 연구분야, widget: string, required: false }
+      - { name: photo, label: 사진, widget: image, required: false }
+      - { name: order, label: 표시 순서 (작을수록 앞), widget: number, value_type: int, default: 100, required: false }
+
+  - name: projects
+    label: 연구 프로젝트
+    label_singular: 프로젝트
+    icon: work
+    folder: site/data/projects
+    extension: json
+    format: json
+    create: true
+    delete: true
+    slug: "{{uuid_short}}"
+    summary: "{{period}} · {{title}}"
+    sortable_fields: [order, period, title]
+    fields:
+      - { name: title, label: 과제명, widget: string }
+      - { name: period, label: 기간, widget: string, hint: "예: 2026 – 2027" }
+      - { name: sponsor, label: 발주기관, widget: string, required: false }
+      - { name: summary, label: 요약, widget: text, required: false }
+      - { name: order, label: 표시 순서 (작을수록 앞), widget: number, value_type: int, default: 100, required: false }
+
+  - name: publications
+    label: 논문·출판
+    label_singular: 논문
+    icon: menu_book
+    folder: site/data/publications
+    extension: json
+    format: json
+    create: true
+    delete: true
+    slug: "{{year}}-{{uuid_shorter}}"
+    summary: "{{year}} · [{{type}}] {{title}}"
+    sortable_fields: [year, type, title]
+    fields:
+      - { name: year, label: 연도, widget: number, value_type: int }
+      - { name: type, label: 유형, widget: select, options: [국제학술지, 국내학술지, 저서, 보고서, 학술대회, 기타], default: 국제학술지 }
+      - { name: authors, label: 저자, widget: string }
+      - { name: title, label: 제목, widget: string }
+      - { name: venue, label: 게재지/출판사, widget: string, required: false }
+      - { name: link, label: 링크(DOI 등), widget: string, required: false }
+
+  - name: seminars
+    label: 세미나·포럼
+    label_singular: 세미나
+    icon: event
+    folder: site/data/seminars
+    extension: json
+    format: json
+    create: true
+    delete: true
+    slug: "{{year}}{{month}}{{day}}-{{uuid_shorter}}"
+    summary: "{{date}} · {{title}}"
+    sortable_fields: [date, title]
+    fields:
+      - { name: title, label: 제목, widget: string }
+      - { name: date, label: 날짜, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, default: "{{now}}" }
+      - { name: speaker, label: 발표자, widget: string, required: false }
+      - { name: place, label: 장소, widget: string, required: false }
+
+  - name: resources
+    label: 자료실
+    label_singular: 자료
+    icon: folder
+    folder: site/data/resources
+    extension: json
+    format: json
+    create: true
+    delete: true
+    slug: "{{year}}{{month}}{{day}}-{{uuid_shorter}}"
+    summary: "{{date}} · {{title}}"
+    sortable_fields: [date, title]
+    fields:
+      - { name: title, label: 제목, widget: string }
+      - { name: date, label: 날짜, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, default: "{{now}}" }
+      - { name: file, label: 파일, widget: file, required: false }
+      - { name: desc, label: 설명(형식·용량 등), widget: string, required: false }
+
+  # ---------- 단일 페이지 설정 ----------
+  - name: pages
+    label: 소개 · 설정
+    icon: settings
+    files:
+      - name: about
+        label: 센터 소개 · 인사말
+        file: site/data/about.json
+        fields:
+          - { name: mission, label: 설립 목적, widget: text }
+          - name: areas
+            label: 주요 활동분야
+            label_singular: 분야
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: 제목, widget: string }
+              - { name: desc, label: 설명, widget: string }
+          - name: greeting
+            label: 센터장 인사말
+            widget: object
+            fields:
+              - { name: name, label: 이름, widget: string }
+              - { name: title, label: 직함, widget: string }
+              - { name: photo, label: 사진, widget: image, required: false }
+              - { name: body, label: 인사말 본문, widget: text, hint: "문단은 빈 줄로 구분" }
+      - name: settings
+        label: 사이트 설정 (이름 · 연락처 · 메뉴 · 로고 · 배너)
+        file: site/data/settings.json
+        fields:
+          - name: name
+            label: 센터명
+            widget: object
+            fields:
+              - { name: ko, label: 국문, widget: string }
+              - { name: en, label: 영문, widget: string }
+          - name: tagline
+            label: 홈 태그라인
+            widget: object
+            fields:
+              - { name: en, label: 영문(큰 제목), widget: string }
+              - { name: ko, label: 국문(부제), widget: string }
+          - { name: testBanner, label: 상단 안내 배너 (비우면 숨김), widget: string, required: false }
+          - { name: logo, label: 로고 이미지 (비우면 KU 글자 마크), widget: image, required: false, hint: "정사각형 PNG/SVG 권장" }
+          - { name: heroImage, label: 홈 배너 사진 (비우면 단색 배경), widget: image, required: false, hint: "가로 1600px 이상 권장. 어두운 톤이 글자와 잘 어울립니다" }
+          - name: contact
+            label: 연락처
+            widget: object
+            fields:
+              - { name: address, label: 주소, widget: string }
+              - { name: tel, label: 전화, widget: string }
+              - { name: email, label: 이메일, widget: string }
+              - { name: mapUrl, label: 지도 링크 (버튼용, 네이버 지도 등), widget: string, required: false }
+              - { name: mapEmbed, label: 지도 임베드 주소, widget: string, required: false, hint: "구글 지도: https://www.google.com/maps?q=주소&output=embed 형식. 비우면 지도 숨김" }
+              - { name: transit, label: 교통 안내, widget: string, required: false }
+          - name: nav
+            label: 상단 메뉴
+            widget: list
+            summary: "{{fields.label}}"
+            fields:
+              - { name: label, label: 메뉴명, widget: string }
+              - { name: href, label: 링크, widget: string }
+          - name: links
+            label: 푸터 링크
+            widget: list
+            summary: "{{fields.label}}"
+            fields:
+              - { name: label, label: 이름, widget: string }
+              - { name: href, label: 주소, widget: string }

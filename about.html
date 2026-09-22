@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>센터 소개 | 엔터테인먼트경영연구센터</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<meta name="description" content="설립 목적, 주요 활동분야, 센터장 인사말">
+<meta property="og:type" content="website">
+<meta property="og:title" content="센터 소개 | 엔터테인먼트경영연구센터">
+<meta property="og:description" content="설립 목적, 주요 활동분야, 센터장 인사말">
+<meta property="og:site_name" content="Center for Entertainment Strategy and Management, Korea University">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site-header" id="site-header"></header>
+
+<section class="hero small">
+  <div class="container">
+    <span class="eyebrow">About</span>
+    <h1>센터 소개</h1>
+    <p>Center for Entertainment Strategy and Management</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container split">
+    <div class="prose">
+      <span class="eyebrow">Vision</span>
+      <h2>설립 목적</h2>
+      <p id="mission"></p>
+      <h2 style="margin-top:2em">주요 활동분야</h2>
+      <ol id="areas"></ol>
+    </div>
+    <aside class="info-box">
+      <dl>
+        <dt>센터명</dt><dd>엔터테인먼트경영연구센터<br><span class="muted">Center for Entertainment Strategy and Management</span></dd>
+        <dt>소속</dt><dd>고려대학교 미디어학부</dd>
+        <dt>센터장</dt><dd>김정환 교수</dd>
+        <dt>위치</dt><dd id="addr"></dd>
+        <dt>연락처</dt><dd id="tel"></dd>
+      </dl>
+    </aside>
+  </div>
+</section>
+
+<section class="section soft" id="greeting">
+  <div class="container split">
+    <div class="prose">
+      <span class="eyebrow">Greeting</span>
+      <h2>센터장 인사말</h2>
+      <div id="greeting-body"></div>
+      <p style="margin-top:2em"><strong id="greeting-name"></strong><br><span class="muted" id="greeting-title"></span></p>
+    </div>
+    <div id="greeting-photo">
+      <div class="thumb" style="aspect-ratio:4/5;max-width:340px">센터장 사진</div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script>
+window.render = function (S) {
+  document.getElementById('mission').textContent = S.mission;
+  document.getElementById('areas').innerHTML = S.areas.map(a => `<li><strong>${a.title}</strong> — ${a.desc}</li>`).join('');
+  document.getElementById('addr').textContent = S.contact.address;
+  document.getElementById('tel').innerHTML = `TEL ${S.contact.tel}<br><a href="mailto:${S.contact.email}">${S.contact.email}</a>`;
+  document.getElementById('greeting-body').innerHTML = (S.greeting.body || '').split(/\n\s*\n/).map(p => `<p>${p.trim()}</p>`).join('');
+  document.getElementById('greeting-name').textContent = S.greeting.name;
+  document.getElementById('greeting-title').textContent = S.greeting.title;
+  if (S.greeting.photo) document.getElementById('greeting-photo').innerHTML = `<img src="${S.greeting.photo}" alt="${S.greeting.name}" style="border-radius:10px;max-width:340px">`;
+};
+</script>
+<script src="assets/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>오시는 길 | 엔터테인먼트경영연구센터</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<meta name="description" content="고려대학교 미디어관 1207호, 연락처">
+<meta property="og:type" content="website">
+<meta property="og:title" content="오시는 길 | 엔터테인먼트경영연구센터">
+<meta property="og:description" content="고려대학교 미디어관 1207호, 연락처">
+<meta property="og:site_name" content="Center for Entertainment Strategy and Management, Korea University">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site-header" id="site-header"></header>
+
+<section class="hero small">
+  <div class="container">
+    <span class="eyebrow">Contact</span>
+    <h1>오시는 길</h1>
+    <p>Location &amp; Contact</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container split">
+    <div id="map-box">
+      <div class="thumb" style="aspect-ratio:16/11;margin:0">지도</div>
+    </div>
+    <aside class="info-box">
+      <dl>
+        <dt>주소</dt><dd id="addr"></dd>
+        <dt>전화</dt><dd id="tel"></dd>
+        <dt>이메일</dt><dd id="email"></dd>
+        <dt>교통</dt><dd id="transit"></dd>
+      </dl>
+      <p style="margin-top:20px"><a class="btn" id="map-link" target="_blank" rel="noopener">지도에서 보기</a></p>
+    </aside>
+  </div>
+</section>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script>
+window.render = function (S) {
+  document.getElementById('addr').textContent = S.contact.address;
+  document.getElementById('tel').textContent = S.contact.tel;
+  document.getElementById('email').innerHTML = `<a href="mailto:${S.contact.email}">${S.contact.email}</a>`;
+  document.getElementById('transit').textContent = S.contact.transit || '';
+  document.getElementById('map-link').href = S.contact.mapUrl || '#';
+  if (S.contact.mapEmbed) {
+    document.getElementById('map-box').innerHTML =
+      `<iframe src="${S.contact.mapEmbed}" title="지도" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+         style="width:100%;aspect-ratio:16/11;border:0;border-radius:10px" allowfullscreen></iframe>`;
+  }
+};
+</script>
+<script src="assets/main.js"></script>
+</body>
+</html>

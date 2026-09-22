@@ -1,0 +1,104 @@
+{
+  "items": [
+    {
+      "name": "김성철",
+      "role": "공동연구원",
+      "aff": "고려대학교 미디어학부",
+      "email": "",
+      "field": "",
+      "photo": "",
+      "order": 20,
+      "_id": "김성철"
+    },
+    {
+      "name": "김정환",
+      "role": "센터장",
+      "aff": "고려대학교 미디어학부 / 글로벌엔터테인먼트학부",
+      "email": "evolve@korea.ac.kr",
+      "field": "엔터테인먼트 · 플랫폼 · 테크놀로지",
+      "photo": "",
+      "order": 10,
+      "_id": "김정환"
+    },
+    {
+      "name": "김주희",
+      "role": "공동연구원",
+      "aff": "동덕여자대학교",
+      "email": "",
+      "field": "",
+      "photo": "",
+      "order": 70,
+      "_id": "김주희"
+    },
+    {
+      "name": "김진주",
+      "role": "공동연구원",
+      "aff": "Erasmus University",
+      "email": "",
+      "field": "",
+      "photo": "",
+      "order": 90,
+      "_id": "김진주"
+    },
+    {
+      "name": "임철민",
+      "role": "공동연구원",
+      "aff": "전북대학교",
+      "email": "",
+      "field": "",
+      "photo": "",
+      "order": 80,
+      "_id": "임철민"
+    },
+    {
+      "name": "정윤혁",
+      "role": "공동연구원",
+      "aff": "고려대학교 미디어학부",
+      "email": "",
+      "field": "",
+      "photo": "",
+      "order": 40,
+      "_id": "정윤혁"
+    },
+    {
+      "name": "조성인",
+      "role": "공동연구원",
+      "aff": "서강대학교",
+      "email": "",
+      "field": "",
+      "photo": "",
+      "order": 60,
+      "_id": "조성인"
+    },
+    {
+      "name": "최보름",
+      "role": "공동연구원",
+      "aff": "연세대학교",
+      "email": "",
+      "field": "",
+      "photo": "",
+      "order": 50,
+      "_id": "최보름"
+    },
+    {
+      "name": "최세정",
+      "role": "공동연구원",
+      "aff": "고려대학교 미디어학부",
+      "email": "",
+      "field": "",
+      "photo": "",
+      "order": 30,
+      "_id": "최세정"
+    },
+    {
+      "name": "하진경",
+      "role": "Research Fellow",
+      "aff": "박사",
+      "email": "",
+      "field": "",
+      "photo": "",
+      "order": 100,
+      "_id": "하진경"
+    }
+  ]
+}

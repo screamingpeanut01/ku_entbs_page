@@ -1,0 +1,34 @@
+{
+  "name": {
+    "ko": "엔터테인먼트경영연구센터",
+    "en": "Center for Entertainment Strategy and Management"
+  },
+  "tagline": {
+    "en": "Entertainment, Strategy & Management",
+    "ko": "엔터테인먼트 산업과 경영의 다학제적 연구 허브"
+  },
+  "testBanner": "이 페이지는 테스트 목업입니다. 일부 콘텐츠는 예시 데이터입니다.",
+  "logo": "",
+  "heroImage": "",
+  "contact": {
+    "address": "서울특별시 성북구 안암로 145 고려대학교 미디어관 1207호",
+    "tel": "02-3290-5039",
+    "email": "evolve@korea.ac.kr",
+    "mapUrl": "https://map.naver.com/p/search/고려대학교%20미디어관",
+    "mapEmbed": "https://www.google.com/maps?q=고려대학교%20미디어관&z=17&hl=ko&output=embed",
+    "transit": "지하철 6호선 안암역(고대병원앞) 1번 출구 도보 10분"
+  },
+  "nav": [
+    { "label": "HOME", "href": "index.html" },
+    { "label": "ABOUT", "href": "about.html" },
+    { "label": "PEOPLE", "href": "people.html" },
+    { "label": "RESEARCH", "href": "research.html" },
+    { "label": "NEWS", "href": "news.html" },
+    { "label": "CONTACT", "href": "contact.html" }
+  ],
+  "links": [
+    { "label": "고려대학교 미디어학부", "href": "https://mediacom.korea.ac.kr/" },
+    { "label": "센터 소개 (미디어학부)", "href": "https://mediacom.korea.ac.kr/laboratory/center05.html" },
+    { "label": "고려대학교", "href": "https://www.korea.ac.kr/" }
+  ]
+}
